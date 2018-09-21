@@ -91,6 +91,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -132,15 +135,20 @@ $(document).ready(function () {
 <p>Nainstalovaný balík načtete příkazem <code>library()</code>. Jelikož jde o existující objekt, nepoužívají se “”.<br />
 Pokud nechcete načítat balík, či chcete specifikovat, z jakého balíku se má příkaz použít, příkaz uvodíte názvem knihovny a <code>::</code> (např. <code>readr::read_csv()</code>)</p>
 <pre class="r"><code>library(tidyverse) # načte balík tidyverse</code></pre>
-<pre><code>## -- Attaching packages ---------------------------------------------------------- tidyverse 1.2.1 --</code></pre>
-<pre><code>## &lt;U+221A&gt; ggplot2 2.2.1.9000     &lt;U+221A&gt; purrr   0.2.4     
-## &lt;U+221A&gt; tibble  1.4.2          &lt;U+221A&gt; dplyr   0.7.4     
-## &lt;U+221A&gt; tidyr   0.8.0          &lt;U+221A&gt; stringr 1.3.0     
-## &lt;U+221A&gt; readr   1.1.1          &lt;U+221A&gt; forcats 0.3.0</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------------------------- tidyverse_conflicts() --
+<pre><code>## Warning: package 'tidyverse' was built under R version 3.4.4</code></pre>
+<pre><code>## -- Attaching packages --------------------------------------------------------------------------------- tidyverse 1.2.1 --</code></pre>
+<pre><code>## &lt;U+221A&gt; ggplot2 3.0.0     &lt;U+221A&gt; purrr   0.2.5
+## &lt;U+221A&gt; tibble  1.4.2     &lt;U+221A&gt; dplyr   0.7.6
+## &lt;U+221A&gt; tidyr   0.8.1     &lt;U+221A&gt; stringr 1.3.1
+## &lt;U+221A&gt; readr   1.1.1     &lt;U+221A&gt; forcats 0.3.0</code></pre>
+<pre><code>## Warning: package 'ggplot2' was built under R version 3.4.4</code></pre>
+<pre><code>## Warning: package 'tidyr' was built under R version 3.4.4</code></pre>
+<pre><code>## Warning: package 'purrr' was built under R version 3.4.4</code></pre>
+<pre><code>## Warning: package 'dplyr' was built under R version 3.4.4</code></pre>
+<pre><code>## Warning: package 'stringr' was built under R version 3.4.4</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------------------------------------------------ tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-## x dplyr::vars()   masks ggplot2::vars()</code></pre>
+## x dplyr::lag()    masks stats::lag()</code></pre>
 </div>
 <div id="import-dat" class="section level2">
 <h2>Import dat</h2>
@@ -199,20 +207,21 @@ Další možností je pomocí příkazu <code>readClipboard()</code>, který do 
 <div id="import-excelu" class="section level3">
 <h3>Import excelu</h3>
 <pre class="r"><code>library(readxl) # knihovna na import excelu</code></pre>
+<pre><code>## Warning: package 'readxl' was built under R version 3.4.4</code></pre>
 <p><code>read_excel()</code> načte excelový soubor (XLS i XLSX).<br />
 K užitečným parametrům viz nápověda.</p>
 <pre class="r"><code>read_excel(&quot;data/A32_20082018.xlsx&quot;, # použijte &quot;/&quot; nebo &quot;\\&quot;
            range = &quot;ČINNOSTI!A4:C10&quot;, col_names = c(&quot;kod&quot;, &quot;nazev&quot;, &quot;popis&quot;))</code></pre>
 <pre><code>## # A tibble: 7 x 3
-##   kod     nazev                                             popis         
-##   &lt;chr&gt;   &lt;chr&gt;                                             &lt;chr&gt;         
-## 1 CR8460  Povinnost zajištění provozování veřejného pohřeb~ 256/2001 16-1 
-## 2 CR8467  Povinnost vydat rozhodnutí o zrušení veřejného p~ 256/2001 24-1 
-## 3 CR52156 Povinnost vydat k záměru registrované církve a n~ 256/2001 3-4  
-## 4 CR52043 Schvalování řádu neveřejného a veřejného pohřebi~ 256/2001 3-5 ~
-## 5 CR52157 Povinnost zajistit slušné pohřbení těla zemřeléh~ 256/2001 5-1  
-## 6 CR52044 Povinnost přihlásit pohledávku z titulu účelně v~ 256/2001 5-5  
-## 7 CR52045 Povinnost uhradit obci účelně vynaložené náklady~ 256/2001 5-5</code></pre>
+##   kod    nazev                              popis                         
+##   &lt;chr&gt;  &lt;chr&gt;                              &lt;chr&gt;                         
+## 1 CR8460 Povinnost zajištění provozování v~ 256/2001 16-1                 
+## 2 CR8467 Povinnost vydat rozhodnutí o zruš~ 256/2001 24-1                 
+## 3 CR521~ Povinnost vydat k záměru registro~ 256/2001 3-4                  
+## 4 CR520~ Schvalování řádu neveřejného a ve~ 256/2001 3-5                 ~
+## 5 CR521~ Povinnost zajistit slušné pohřben~ 256/2001 5-1                  
+## 6 CR520~ Povinnost přihlásit pohledávku z ~ 256/2001 5-5                  
+## 7 CR520~ Povinnost uhradit obci účelně vyn~ 256/2001 5-5</code></pre>
 </div>
 </div>
 <div id="export-z-r" class="section level2">
@@ -242,7 +251,7 @@ Např. <code>write_csv(agendy, &quot;data\\agendy.csv&quot;)</code> uloží data
 ## 3     3 &quot;\xf9\xed&quot;    23
 ## 4     4 &quot;\xfd\xe1&quot;    27</code></pre>
 <p>Pokud kódování znáte, můžete je specifikovat.</p>
-<pre class="r"><code>read_csv(&quot;data\\ansi.csv&quot;, locale = locale(encoding = &quot;windows-1252&quot;)) # ANSI</code></pre>
+<pre class="r"><code>read_csv(&quot;data\\ansi.csv&quot;, locale = locale(encoding = &quot;windows-1250&quot;)) # ANSI</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   id = col_integer(),
@@ -252,22 +261,23 @@ Např. <code>write_csv(agendy, &quot;data\\agendy.csv&quot;)</code> uloží data
 <pre><code>## # A tibble: 4 x 3
 ##      id jmeno   cas
 ##   &lt;int&gt; &lt;chr&gt; &lt;int&gt;
-## 1     1 iš       12
-## 2     2 eo       18
-## 3     3 uí       23
+## 1     1 ěš       12
+## 2     2 čř       18
+## 3     3 ůí       23
 ## 4     4 ýá       27</code></pre>
-<p>Pokud jej neznáte, přijde vhod příkaz <code>guess_encoding()</code>.</p>
+<p><strong>Pokud se vám dataset načte se špatným kódováním, zkuste vždy nejprve windows-1250,</strong> (někdy označovanou také CP-1250), což je znaková sada používaná operačním systémem Microsoft Windows pro reprezentaci textů ve středoevropských jazycích.<br />
+Pokud jej neznáte, přijde vhod příkaz <code>guess_encoding()</code>.</p>
 <pre class="r"><code>guess_encoding(&quot;data\\ansi.csv&quot;)</code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##   encoding     confidence
 ##   &lt;chr&gt;             &lt;dbl&gt;
-## 1 windows-1252      0.360</code></pre>
+## 1 windows-1252       0.36</code></pre>
 <pre class="r"><code>guess_encoding(&quot;data\\utf-8.csv&quot;)</code></pre>
 <pre><code>## # A tibble: 2 x 2
 ##   encoding     confidence
 ##   &lt;chr&gt;             &lt;dbl&gt;
-## 1 UTF-8             1.00 
-## 2 windows-1252      0.400</code></pre>
+## 1 UTF-8               1  
+## 2 windows-1252        0.4</code></pre>
 <p>Na výsledek není 100% spolehnutí, ale je velmi dobrým indikátorem.</p>
 </div>
 <div id="formatovani-textu" class="section level3">
