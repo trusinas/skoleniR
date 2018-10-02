@@ -91,6 +91,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -120,8 +123,8 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Základy jazyka R - lekce 01</h1>
 <h4 class="author"><em>Šimon Trusina</em></h4>
-<h4 class="date"><em><ol start="19" style="list-style-type: decimal">
-<li>září 2018</li>
+<h4 class="date"><em><ol start="2" style="list-style-type: decimal">
+<li>října 2018</li>
 </ol></em></h4>
 
 </div>
@@ -132,6 +135,11 @@ $(document).ready(function () {
 <p>R je interpretovaný jazyk:</p>
 <pre class="r"><code>2 + 2</code></pre>
 <pre><code>## [1] 4</code></pre>
+<p>Spuštění příkazu:</p>
+<ul>
+<li>ve skriptu [Ctrl] + [Enter]</li>
+<li>v konzoli [Enter]</li>
+</ul>
 <p>Stejný výsledek získám i:</p>
 <pre class="r"><code>2+2</code></pre>
 <pre><code>## [1] 4</code></pre>
@@ -140,7 +148,7 @@ $(document).ready(function () {
 <pre><code>## [1] 4</code></pre>
 <p>Ale první varianta s jednou mezerou se nejlépe čte.</p>
 <p>K přiřazení se používá “=” či “&lt;-” anebo “-&gt;”. <strong>Kvůli logice doporučuji používat “&lt;-”.</strong><br />
-Zkratka v RStudiu: Levý [Alt] + [-] (pomlčka)</p>
+Zkratka v RStudiu: Levý [Alt] + [-] (pomlčka vedle pravého [Shift-u])</p>
 <pre class="r"><code>x &lt;- 1:5
 x</code></pre>
 <pre><code>## [1] 1 2 3 4 5</code></pre>
@@ -170,7 +178,12 @@ Pokud víte, co hledáte, vše najdete na Google. Např. mě zajímá stahován�
 <ul>
 <li>používejte projekty (File &gt; New Project…, nebo rozklikávací nabídka zcela vpravo pod ovládáním okna)</li>
 <li>nápovědu k příkazu si zobrazíte jeho označením (dvojklik) a stisknutím klávesy [F1]</li>
-<li>pokud se skript načte se špatným kódováním - File &gt; Reopen with Encoding…</li>
+<li>pokud se skript načte se špatným kódováním - File &gt; Reopen with Encoding… a zkusit:
+<ul>
+<li>CP1250</li>
+<li>UTF-8</li>
+<li>nebo kódování, u něhož je (System default)</li>
+</ul></li>
 </ul>
 </div>
 <div id="r---pokracovani" class="section level2">

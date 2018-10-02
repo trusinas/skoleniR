@@ -91,6 +91,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -120,8 +123,8 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Základy jazyka R - lekce 02</h1>
 <h4 class="author"><em>Šimon Trusina</em></h4>
-<h4 class="date"><em><ol start="19" style="list-style-type: decimal">
-<li>září 2018</li>
+<h4 class="date"><em><ol start="2" style="list-style-type: decimal">
+<li>října 2018</li>
 </ol></em></h4>
 
 </div>
@@ -228,8 +231,8 @@ A obojí samozřejmě kombinovat</p>
 <pre><code>## [1] 3</code></pre>
 <p>Relační</p>
 <ul>
-<li><code>&lt;</code> menší</li>
-<li><code>&gt;</code> větší</li>
+<li><code>&lt;</code> menší (zkratka [Alt Gr] + [,])</li>
+<li><code>&gt;</code> větší (zkratka [Alt Gr] + [.])</li>
 <li><code>&lt;=</code> menší nebo rovno</li>
 <li><code>&gt;=</code> větší nebo rovno</li>
 <li><code>==</code> rovná se</li>
@@ -271,11 +274,20 @@ A obojí samozřejmě kombinovat</p>
 <p>Logické</p>
 <ul>
 <li><code>!</code> negace</li>
-<li><code>&amp;</code> a zároveň</li>
-<li><code>|</code> nebo</li>
+<li><code>&amp;</code> a zároveň (zkratka [Alt Gr] + [c])</li>
+<li><code>|</code> nebo (zkratka [Alt Gr] + [w])</li>
 </ul>
 <p>Ke konkrétním příkladům viz lekce 04.<br />
 <strong>Pro výběr řádků i sloupců doporučuji používat funkce <code>filter()</code> a <code>select()</code>, které blíže vysvětluje lekce 04.</strong></p>
+</div>
+<div id="upravy-dat-v-rozsahu" class="section level2">
+<h2>Úpravy dat (v rozsahu)</h2>
+<p>Pokud chci změnit hodnotu ve vektoru či datovém rámci, použiji omezení <code>[]</code> a přiřazení <code>&lt;-</code>.</p>
+<pre class="r"><code>rada</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</code></pre>
+<pre class="r"><code>rada[c(1,5)] &lt;- c(20, 20)
+rada</code></pre>
+<pre><code>##  [1] 20  2  3  4 20  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</code></pre>
 </div>
 <div id="ukoly-k-procvicovani" class="section level2">
 <h2>Úkoly k procvičování</h2>

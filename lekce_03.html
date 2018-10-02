@@ -123,8 +123,8 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Základy jazyka R - lekce 03</h1>
 <h4 class="author"><em>Šimon Trusina</em></h4>
-<h4 class="date"><em><ol start="19" style="list-style-type: decimal">
-<li>září 2018</li>
+<h4 class="date"><em><ol start="2" style="list-style-type: decimal">
+<li>října 2018</li>
 </ol></em></h4>
 
 </div>
@@ -135,27 +135,24 @@ $(document).ready(function () {
 <p>Nainstalovaný balík načtete příkazem <code>library()</code>. Jelikož jde o existující objekt, nepoužívají se “”.<br />
 Pokud nechcete načítat balík, či chcete specifikovat, z jakého balíku se má příkaz použít, příkaz uvodíte názvem knihovny a <code>::</code> (např. <code>readr::read_csv()</code>)</p>
 <pre class="r"><code>library(tidyverse) # načte balík tidyverse</code></pre>
-<pre><code>## Warning: package 'tidyverse' was built under R version 3.4.4</code></pre>
-<pre><code>## -- Attaching packages --------------------------------------------------------------------------------- tidyverse 1.2.1 --</code></pre>
-<pre><code>## &lt;U+221A&gt; ggplot2 3.0.0     &lt;U+221A&gt; purrr   0.2.5
-## &lt;U+221A&gt; tibble  1.4.2     &lt;U+221A&gt; dplyr   0.7.6
-## &lt;U+221A&gt; tidyr   0.8.1     &lt;U+221A&gt; stringr 1.3.1
-## &lt;U+221A&gt; readr   1.1.1     &lt;U+221A&gt; forcats 0.3.0</code></pre>
-<pre><code>## Warning: package 'ggplot2' was built under R version 3.4.4</code></pre>
-<pre><code>## Warning: package 'tidyr' was built under R version 3.4.4</code></pre>
-<pre><code>## Warning: package 'purrr' was built under R version 3.4.4</code></pre>
-<pre><code>## Warning: package 'dplyr' was built under R version 3.4.4</code></pre>
-<pre><code>## Warning: package 'stringr' was built under R version 3.4.4</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
 </div>
 <div id="import-dat" class="section level2">
 <h2>Import dat</h2>
 <div id="vytvoreni-v-r" class="section level3">
 <h3>Vytvoření v R</h3>
 <p>Dataset lze vytvořit přímo v R pomocí příkazu <code>data.frame()</code>, jak je vysvětleno v lekci 02.<br />
-Další možností je pomocí příkazu <code>readClipboard()</code>, který do R vypíše obsah schránky. Importovat tímto způsobem tabulku není účelné (protože je nutné ji následně rozdělit na sloupce), ale pro jeden sloupec (přesněji vektor) se jako provizorní řešení někdy může hodit. Jen na sebe budete naštvaní, pokud si výsledek schránky přímo neuložíte do skriptu.</p>
+Další možností je pomocí příkazu <code>readClipboard()</code>, který do R vypíše obsah schránky. Importovat tímto způsobem tabulku není účelné (protože je nutné ji následně rozdělit na sloupce), ale pro jeden sloupec (přesněji vektor) se jako provizorní řešení někdy může hodit. Jen na sebe budete naštvaní, pokud si výsledek schránky přímo neuložíte do skriptu. K tomu slouží příkaz <code>dput()</code>, který vypíše příkaz, jímž by se daný objekt vytvořil.</p>
+<pre class="r"><code>tab &lt;- data.frame(id = c(&quot;A&quot;, &quot;D&quot;, &quot;K&quot;),
+                  n = c(12, 26, 81))
+tab</code></pre>
+<pre><code>##   id  n
+## 1  A 12
+## 2  D 26
+## 3  K 81</code></pre>
+<pre class="r"><code>dput(tab)</code></pre>
+<pre><code>## structure(list(id = structure(1:3, .Label = c(&quot;A&quot;, &quot;D&quot;, &quot;K&quot;), class = &quot;factor&quot;), 
+##     n = c(12, 26, 81)), .Names = c(&quot;id&quot;, &quot;n&quot;), row.names = c(NA, 
+## -3L), class = &quot;data.frame&quot;)</code></pre>
 </div>
 <div id="import-csv-ci-tsv" class="section level3">
 <h3>Import CSV či TSV</h3>
@@ -193,7 +190,7 @@ Další možností je pomocí příkazu <code>readClipboard()</code>, který do 
 ## 2 A7    agenda 7  650000       7
 ## 3 A2    agenda 2 4000000       1</code></pre>
 <p><code>read_tsv()</code> importuje soubor s hodnotami oddělenými tabulátorem [TAB]</p>
-<p>Příkazy na náhled:</p>
+<p>Příkazy na náhled a základní informaci:</p>
 <ul>
 <li><code>glimpse()</code> - zobrazí strukturu datového rámce</li>
 <li><code>str()</code> - zobrazí strukturu datového rámce
@@ -202,12 +199,17 @@ Další možností je pomocí příkazu <code>readClipboard()</code>, který do 
 </ul></li>
 <li><code>head()</code> - zobrazí prvních 6 řádků</li>
 <li><code>tail()</code> - zobrazí posledních 6 řádků</li>
+<li><code>length()</code> - délka vektoru či počet sloupců datového rámce</li>
+<li><code>nrow()</code> - počet řádků datového rámce</li>
+<li><code>names()</code> - vrátí jména sloupců datového rámce
+<ul>
+<li>užitečné pro přejmenování: např. <code>names(tab) &lt;- c(&quot;id&quot;, &quot;datum&quot;)</code> by přejmenovalo sloupce datového rámce <code>tab</code> na uvedené. <strong>Počet počet sloupců datového rámce musí odpovídat délce vektoru s novými názvy.</strong></li>
+</ul></li>
 </ul>
 </div>
 <div id="import-excelu" class="section level3">
 <h3>Import excelu</h3>
 <pre class="r"><code>library(readxl) # knihovna na import excelu</code></pre>
-<pre><code>## Warning: package 'readxl' was built under R version 3.4.4</code></pre>
 <p><code>read_excel()</code> načte excelový soubor (XLS i XLSX).<br />
 K užitečným parametrům viz nápověda.</p>
 <pre class="r"><code>read_excel(&quot;data/A32_20082018.xlsx&quot;, # použijte &quot;/&quot; nebo &quot;\\&quot;
@@ -235,7 +237,7 @@ Např. <code>write_csv(agendy, &quot;data\\agendy.csv&quot;)</code> uloží data
 <h2>Řešení problémů při importu</h2>
 <div id="kodovani" class="section level3">
 <h3>Kódování</h3>
-<p>Častým problémem je špatné kódování textu. Balík <code>reader</code>pracuje s UTF-8.</p>
+<p>Častým problémem je špatné kódování textu. Balík <code>reader</code> (načtený jako součást tidyverse) pracuje s UTF-8.</p>
 <pre class="r"><code>read_csv(&quot;data\\ansi.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
@@ -286,9 +288,9 @@ Pokud jej neznáte, přijde vhod příkaz <code>guess_encoding()</code>.</p>
 <pre class="r"><code>text &lt;- &quot;Nadpis\nVěta 1. Věta  2.\n&quot;
 text</code></pre>
 <pre><code>## [1] &quot;Nadpis\nVěta 1. Věta  2.\n&quot;</code></pre>
-<pre class="r"><code>str_replace_all(text, &quot;\\s&quot;, &quot; &quot;) # ve vektoru text najdi všechny netisknutelné znaky a nahraď je mezerou</code></pre>
-<pre><code>## [1] &quot;Nadpis Věta 1. Věta  2. &quot;</code></pre>
-<p><code>trimws()</code>odstraní nadbytečné mezery pouze na začátku a na konci</p>
+<pre class="r"><code>str_replace_all(text, &quot;\\s+&quot;, &quot; &quot;) # ve vektoru text najdi všechny netisknutelné znaky a nahraď je mezerou</code></pre>
+<pre><code>## [1] &quot;Nadpis Věta 1. Věta 2. &quot;</code></pre>
+<p><code>trimws()</code>odstraní nadbytečné mezery pouze na začátku a na konci u jednotlivých položek vektoru</p>
 <pre class="r"><code>trimws(c(&quot; kočka  a pes &quot;, &quot; dva&quot;)) # dvojitá mezera &quot;kočka  a&quot; zůstala</code></pre>
 <pre><code>## [1] &quot;kočka  a pes&quot; &quot;dva&quot;</code></pre>
 </div>
@@ -302,23 +304,38 @@ text</code></pre>
 ##   osob = col_integer(),
 ##   vznik = col_date(format = &quot;&quot;)
 ## )</code></pre>
-<p>Typ dat jednotlivých sloupců mohu určit parametrem <code>col_types</code>.</p>
-<pre class="r"><code>agendy &lt;- read_csv(&quot;data\\csv.csv&quot;, col_types = &quot;cccc&quot;)
+<p>Typ dat jednotlivých sloupců mohu určit parametrem <code>col_types</code>. <strong>Počet znaků parametru musí odpovídat počtu sloupců.</strong></p>
+<ul>
+<li><code>c</code> – text</li>
+<li><code>i</code> – celé číslo</li>
+<li><code>n</code> – číslo</li>
+<li><code>d</code> – desetinná čísla</li>
+<li><code>D</code> – datum (nejlépe formát RRRR-MM-DD)</li>
+<li><code>T</code> – datum (nejlépe formát RRRR-MM-DD) a čas</li>
+<li><code>t</code> – čas</li>
+<li><code>?</code> – automatická detekce</li>
+<li><code>_</code> – přeskočí sloupec</li>
+</ul>
+<pre class="r"><code>agendy &lt;- read_csv(&quot;data\\csv.csv&quot;, col_types = &quot;c_?c&quot;)
 glimpse(agendy)</code></pre>
 <pre><code>## Observations: 4
-## Variables: 4
-## $ kod    &lt;chr&gt; &quot;A1&quot;, &quot;A2&quot;, &quot;A2&quot;, &quot;A3&quot;
-## $ agenda &lt;chr&gt; &quot;agenda 1&quot;, &quot;agenda 2&quot;, &quot;agenda 2.1&quot;, &quot;agenda 3&quot;
-## $ osob   &lt;chr&gt; &quot;2&quot;, &quot;6&quot;, &quot;4&quot;, &quot;4&quot;
-## $ vznik  &lt;chr&gt; &quot;2017-02-12&quot;, &quot;2016-06-15&quot;, &quot;2017-08-30&quot;, &quot;2012-01-01&quot;</code></pre>
+## Variables: 3
+## $ kod   &lt;chr&gt; &quot;A1&quot;, &quot;A2&quot;, &quot;A2&quot;, &quot;A3&quot;
+## $ osob  &lt;int&gt; 2, 6, 4, 4
+## $ vznik &lt;chr&gt; &quot;2017-02-12&quot;, &quot;2016-06-15&quot;, &quot;2017-08-30&quot;, &quot;2012-01-01&quot;</code></pre>
 <p>K jednotlivým zkratkám viz nápověda k <code>read_csv</code>.</p>
 </div>
 </div>
 <div id="ukoly-k-procvicovani" class="section level2">
 <h2>Úkoly k procvičování</h2>
 <ol style="list-style-type: decimal">
-<li></li>
+<li>Stáhněte si soubor (XLSX) pod <a href="https://vdb.czso.cz/vdbvo2/faces/cs/index.jsf?page=vystup-objekt&amp;pvo=VOLDPR201802-KR&amp;z=T&amp;f=TABULKA&amp;skupId=2159&amp;katalog=32285&amp;pvo=VOLDPR201802-KR&amp;str=v103&amp;v=v101__VOLKOLO__1059__1#w=">odkazem</a> (ikona diskety, Export do XLSX) a načtěte jej (nápověda: musíte specifikovat rozsah dat).</li>
+<li>Stáhněte si soubor (csv) pod <a href="http://opendata.praha.eu/dataset/e5740d0f-d683-490a-a14c-9dc7fffd3abb/resource/968026b1-0f7c-4471-aa7c-a244574f2030/download/959c0e6f-5afb-489f-95ef-c9c2982963de-adopcezvirata.csv">odkazem</a> a načtěte jej (nápověda: musíte specifikovat rozsah dat).</li>
 </ol>
+<ul>
+<li>TIP: webový odkaz můžete uložit jako <code>odkaz</code> (adresa musí být v “”) a soubor načíst <code>tab &lt;- read_csv(odkaz)</code></li>
+<li>Kolik má tabulka řádků a sloupců?</li>
+</ul>
 </div>
 
 
