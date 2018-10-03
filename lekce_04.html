@@ -123,8 +123,8 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Základy jazyka R - lekce 04</h1>
 <h4 class="author"><em>Šimon Trusina</em></h4>
-<h4 class="date"><em><ol start="19" style="list-style-type: decimal">
-<li>září 2018</li>
+<h4 class="date"><em><ol start="2" style="list-style-type: decimal">
+<li>října 2018</li>
 </ol></em></h4>
 
 </div>
@@ -133,21 +133,7 @@ $(document).ready(function () {
 <div id="uzitecny-pomocnik" class="section level2">
 <h2>%&gt;% - užitečný pomocník</h2>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## Warning: package 'tidyverse' was built under R version 3.4.4</code></pre>
-<pre><code>## -- Attaching packages --------------------------------------------------------------------------------- tidyverse 1.2.1 --</code></pre>
-<pre><code>## &lt;U+221A&gt; ggplot2 3.0.0     &lt;U+221A&gt; purrr   0.2.5
-## &lt;U+221A&gt; tibble  1.4.2     &lt;U+221A&gt; dplyr   0.7.6
-## &lt;U+221A&gt; tidyr   0.8.1     &lt;U+221A&gt; stringr 1.3.1
-## &lt;U+221A&gt; readr   1.1.1     &lt;U+221A&gt; forcats 0.3.0</code></pre>
-<pre><code>## Warning: package 'ggplot2' was built under R version 3.4.4</code></pre>
-<pre><code>## Warning: package 'tidyr' was built under R version 3.4.4</code></pre>
-<pre><code>## Warning: package 'purrr' was built under R version 3.4.4</code></pre>
-<pre><code>## Warning: package 'dplyr' was built under R version 3.4.4</code></pre>
-<pre><code>## Warning: package 'stringr' was built under R version 3.4.4</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<p>Používání <code>%&gt;%</code> (pipe) [Alt] + [SHIFT] + [m] učiní váš kód srozumitelnější.</p>
+<p>Používání <code>%&gt;%</code> (pipe) [Ctrl] + [SHIFT] + [m] učiní váš kód srozumitelnější.</p>
 <pre class="r"><code>auta &lt;- mtcars %&gt;%
   rownames_to_column(var = &quot;jmeno&quot;)
 
@@ -171,15 +157,94 @@ auta %&gt;%
 ## 12    Pontiac Firebird 19.2
 ## 13      Ford Pantera L 15.8
 ## 14       Maserati Bora 15.0</code></pre>
-<p>Užitečné operátory k <code>filter()</code>:</p>
+<p><code>filter()</code> hledá řádky, které odpovídají stanovené podmínce. Užitečné operátory k <code>filter()</code>:</p>
 <ul>
-<li><code>&amp;</code> [Alt Gr] + [c] - logický operátor “A”</li>
+<li><code>&amp;</code> [Alt Gr] + [c] či <code>,</code> - logický operátor “A”</li>
 <li><code>!</code> - logický operátor “NE” (negace)</li>
 <li><code>|</code> [Alt Gr] + [w] - logický operátor “NEBO”</li>
 <li><code>==</code> - právě takový (shoda)</li>
 <li><code>%in%</code> - jeden z (<code>x == 2 | x == 6</code> je stejné jako <code>x %in% c(2, 6)</code>)</li>
+<li>a dále relační (lekce 02)</li>
 </ul>
-<p><code>select()</code> vybere jmenovaný sloupec. Užitečné parametry k němu jsou:</p>
+<pre class="r"><code>auta %&gt;% 
+  filter(mpg &lt;= 21, disp &lt;= 160) # operátor A = musí být splněny obě podmínky</code></pre>
+<pre><code>##           jmeno  mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## 1     Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## 2 Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## 3  Ferrari Dino 19.7   6  145 175 3.62 2.770 15.50  0  1    5    6</code></pre>
+<pre class="r"><code>auta %&gt;% 
+  filter(gear != 4)</code></pre>
+<pre><code>##                  jmeno  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## 1       Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## 2    Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## 3              Valiant 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## 4           Duster 360 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## 5           Merc 450SE 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## 6           Merc 450SL 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## 7          Merc 450SLC 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+## 8   Cadillac Fleetwood 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## 9  Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## 10   Chrysler Imperial 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## 11       Toyota Corona 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## 12    Dodge Challenger 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## 13         AMC Javelin 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## 14          Camaro Z28 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## 15    Pontiac Firebird 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## 16       Porsche 914-2 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## 17        Lotus Europa 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## 18      Ford Pantera L 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## 19        Ferrari Dino 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## 20       Maserati Bora 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8</code></pre>
+<pre class="r"><code>auta %&gt;% 
+  filter(gear == 4 | carb &gt; 3) # operátor NEBO = splnění alespoň jedné podmínky</code></pre>
+<pre><code>##                  jmeno  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## 1            Mazda RX4 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## 2        Mazda RX4 Wag 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## 3           Datsun 710 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## 4           Duster 360 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## 5            Merc 240D 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## 6             Merc 230 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## 7             Merc 280 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## 8            Merc 280C 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## 9   Cadillac Fleetwood 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## 10 Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## 11   Chrysler Imperial 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## 12            Fiat 128 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## 13         Honda Civic 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## 14      Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## 15          Camaro Z28 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## 16           Fiat X1-9 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## 17      Ford Pantera L 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## 18        Ferrari Dino 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## 19       Maserati Bora 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+## 20          Volvo 142E 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+<pre class="r"><code>auta %&gt;% 
+  filter(gear == 4, cyl %in% c(4, 6)) # auta se 4 rychlostmi a 4 či 6 válci</code></pre>
+<pre><code>##             jmeno  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## 1       Mazda RX4 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## 2   Mazda RX4 Wag 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## 3      Datsun 710 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## 4       Merc 240D 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## 5        Merc 230 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## 6        Merc 280 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## 7       Merc 280C 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## 8        Fiat 128 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## 9     Honda Civic 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## 10 Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## 11      Fiat X1-9 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## 12     Volvo 142E 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+<pre class="r"><code>auta %&gt;% 
+  filter(str_detect(jmeno, &quot;(?i)mazda&quot;)) # ve sloupci jmeno hledám mazda, nezáleží na velikosti písmen (?i)</code></pre>
+<pre><code>##           jmeno mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## 1     Mazda RX4  21   6  160 110  3.9 2.620 16.46  0  1    4    4
+## 2 Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</code></pre>
+<pre class="r"><code>auta %&gt;% 
+  filter(str_detect(jmeno, &quot;Mazda|mazda&quot;)) # ve sloupci jmeno hledám Mazda či mazda</code></pre>
+<pre><code>##           jmeno mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## 1     Mazda RX4  21   6  160 110  3.9 2.620 16.46  0  1    4    4
+## 2 Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</code></pre>
+<p><code>select()</code> vybere jmenovaný sloupec. Odebrání sloupce <code>mpg</code> se provede <code>select(-mpg)</code>.<br />
+Užitečné parametry k němu jsou:</p>
 <ul>
 <li><code>starts_with()</code> - začíná uvedenými znaky</li>
 <li><code>ends_with()</code> - končí uvedenými znaky</li>
@@ -188,8 +253,45 @@ auta %&gt;%
 <li><code>num_range()</code> - pokud mají sloupce numerické zakončení (pro id2 a id3 <code>num_range(&quot;id&quot;, 2:3)</code>)</li>
 <li><code>one_of()</code> - pokud mám vybrané názvy sloupců uložené jako vektor</li>
 </ul>
+<p><strong>Výše uvedené příkazy se týkají výběru sloupců (názvů proměnných), proto je nelze použít s příkazem <code>filter()</code>.</strong></p>
+<pre class="r"><code>auta %&gt;% 
+  select(starts_with(&quot;d&quot;)) %&gt;%  # vybere sloupce s názvem začínajícím na d
+  head(3)</code></pre>
+<pre><code>##   disp drat
+## 1  160 3.90
+## 2  160 3.90
+## 3  108 3.85</code></pre>
+<pre class="r"><code>auta %&gt;% 
+  select(contains(&quot;ar&quot;)) %&gt;% # vybere sloupce s názvem obsahujícím ar
+  head(3)</code></pre>
+<pre><code>##   gear carb
+## 1    4    4
+## 2    4    4
+## 3    4    1</code></pre>
+<pre class="r"><code>jmena &lt;- c(&quot;jmeno&quot;, &quot;hp&quot;, &quot;gear&quot;)
+auta %&gt;% 
+  select(one_of(jmena)) %&gt;% # vybere sloupce definované ve vektoru jmena
+  head(3)</code></pre>
+<pre><code>##           jmeno  hp gear
+## 1     Mazda RX4 110    4
+## 2 Mazda RX4 Wag 110    4
+## 3    Datsun 710  93    4</code></pre>
 <p><code>select(auta, spotreba = mpg)</code> vybere sloupec <code>mpg</code> a přejmenuje jej na <code>spotreba</code>.<br />
 <code>rename(auta, spotreba = mpg)</code> pouze přejmenuje sloupec <code>mpg</code> na <code>spotreba</code> (nic nevybere).</p>
+<pre class="r"><code>auta %&gt;% 
+  select(spotreba = mpg) %&gt;% 
+  head(3)</code></pre>
+<pre><code>##   spotreba
+## 1     21.0
+## 2     21.0
+## 3     22.8</code></pre>
+<pre class="r"><code>auta %&gt;% 
+  rename(spotreba = mpg) %&gt;% 
+  head(3)</code></pre>
+<pre><code>##           jmeno spotreba cyl disp  hp drat    wt  qsec vs am gear carb
+## 1     Mazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## 2 Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## 3    Datsun 710     22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</code></pre>
 </div>
 <div id="vytvareni-novych-promennych" class="section level2">
 <h2>Vytváření nových proměnných</h2>
@@ -241,6 +343,7 @@ Užitečné funkce (nejen k <code>summarise()</code>):</p>
 <li><code>max()</code> - maximum (největší)</li>
 <li><code>sum()</code> - suma</li>
 <li><code>mean()</code> - průměr</li>
+<li><code>n()</code> – počet pozorování</li>
 </ul>
 <p>Příklad využití kombinace příkazů - vyhledání k dnešnímu dni aktuálních agend</p>
 <pre class="r"><code>tab &lt;- read_csv(&quot;data/tabulka_agend.csv&quot;) # import tabulky https://rpp-ais.egon.gov.cz/gen/agendy-detail/</code></pre>
@@ -277,8 +380,12 @@ head(tab)</code></pre>
 </div>
 <div id="ukoly-k-procvicovani" class="section level2">
 <h2>Úkoly k procvičování</h2>
+<p>Načtěte dataset k adopci zvířat (2. úkol z minulé lekce) a odpovězte na následující otázky:</p>
 <ol style="list-style-type: decimal">
-<li></li>
+<li>Jaká třída zvířat má nejvyšší průměrnou cenu?</li>
+<li>V jaké třídě je nejvíce zvířat k prohlídce? TIP: Po vyfiltrování “k_prohlidce” použíjte příkaz <code>count()</code> místo kombinace <code>group_by()</code> a <code>summarise(pocet = n())</code></li>
+<li>Jaká třída má v průměru nejkratší český název zvířete?</li>
+<li>Jak se jmenuje nejdražší zvíře, které už není k dispozici?</li>
 </ol>
 </div>
 
